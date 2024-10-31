@@ -49,7 +49,7 @@ subprojects {
 
         jar {
             // put all built jars in the same dir (build/libs)
-            destinationDirectory = rootDir.resolve("build").resolve("libs_$name")
+            destinationDirectory = rootDir.resolve("build").resolve("libs_${project.name}")
 
             // add license file to jars
             from(rootDir.resolve("LICENSE.md"))

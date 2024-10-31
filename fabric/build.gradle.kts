@@ -1,5 +1,8 @@
 @file:Suppress("UnstableApiUsage")
 
+import net.fabricmc.loom.task.RemapJarTask
+
+
 plugins {
     id("fabric-loom") version "1.8.9"
 }
@@ -46,8 +49,12 @@ tasks {
         source(project(":common").sourceSets.main.get().allSource)
     }
 
-    // TODO
-    remapJar.get().destinationDirectory = rootDir.resolve("build").resolve("libs")
+    withType<Jar> {
+        destinationDirectory = rootDir.resolve("build").resolve("libs_fabric")
+    }
+    withType<RemapJarTask> {
+        destinationDirectory = rootDir.resolve("build").resolve("libs_fabric")
+    }
 
     javadoc { source(project(":common").sourceSets.main.get().allJava) }
 
