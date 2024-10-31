@@ -82,7 +82,7 @@ runs {
     configureEach {
         modSource(project.sourceSets.main.get())
     }
-    create("client") {
+    named("client") {
         client()
         shouldExportToIDE(true)
     }
@@ -90,5 +90,5 @@ runs {
 
 accessTransformers {
     // TODO
-    file("src/main/resources/META-INF/accesstransformer.cfg")
+//    file("src/main/resources/META-INF/accesstransformer.cfg")
 }

@@ -20,7 +20,7 @@ dependencies {
     annotationProcessor("io.github.llamalad7:mixinextras-common:0.3.5")
 
     compileOnly("net.fabricmc:sponge-mixin:0.15.3+mixin.0.8.7")
-    compileOnly("net.fabricmc:fabric-loader:${}")
+//    compileOnly("net.fabricmc:fabric-loader:${}")
 
     // add your custom dependencies here
 }
