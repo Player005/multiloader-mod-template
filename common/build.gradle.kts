@@ -4,17 +4,13 @@ plugins {
     id("fabric-loom") version ("1.8.9")
 }
 
-val MINECRAFT_VERSION: String by rootProject.extra
-val PARCHMENT_VERSION: String by rootProject.extra
-val PARCHMENT_MC_VERSION: String by rootProject.extra
-
-// you can put a repositories block here if you need dependencies from other sources than modrinth
+// you can put a repositories block here if you need common dependencies from other sources than modrinth
 
 dependencies {
-    minecraft("com.mojang:minecraft:${MINECRAFT_VERSION}")
+    minecraft("com.mojang:minecraft:${rootProject.properties["minecraft_version"]}")
     mappings(loom.layered {
         officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-$PARCHMENT_MC_VERSION:$PARCHMENT_VERSION@zip")
+        parchment("org.parchmentmc.data:parchment-${rootProject.properties["parchment_version"]}@zip")
     })
 
     // mixin extras is included by default in both fabric and neoforge (no additional dependency required)
