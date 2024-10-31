@@ -1,20 +1,26 @@
 @file:Suppress("UnstableApiUsage")
 
-val MINECRAFT_VERSION: String by rootProject.extra
-val PARCHMENT_VERSION: String by rootProject.extra
-val PARCHMENT_MC_VERSION: String by rootProject.extra
-
-val FABRIC_LOADER_VERSION: String by rootProject.extra
-val FABRIC_API_VERSION: String by rootProject.extra
-
-val FDRF_VERSION: String by rootProject.extra
-
-
 plugins {
     id("fabric-loom") version "1.8.9"
 }
 
-// put a repositories here for fabric-only dependencies
+// add a repositories block here for fabric-only dependencies if you need it
+
+dependencies {
+    minecraft("com.mojang:minecraft:${rootProject.properties["minecraft_version"]}")
+    mappings(loom.layered {
+        officialMojangMappings()
+        parchment("org.parchmentmc.data:parchment-${rootProject.properties["parchment_version"]}@zip")
+    })
+
+    modImplementation("net.fabricmc:fabric-loader:${rootProject.properties["fabric_loader_version"]}")
+    // This line can be removed if you don't need fabric api
+    modImplementation("net.fabricmc.fabric-api:fabric-api:${rootProject.properties["fabric_api_version"]}")
+
+    implementation(project.project(":common").sourceSets.getByName("main").output)
+
+    // Add fabric-only dependencies here.
+}
 
 loom {
     runs {
@@ -48,14 +54,9 @@ tasks {
     processResources {
         from(project(":common").sourceSets.main.get().resources)
 
+        // make all properties defined in gradle.properties usable in the neoforge.mods.toml
         filesMatching("fabric.mod.json") {
-            expand(
-                mapOf(
-                    "version" to project.version,
-                    "loader_version" to FABRIC_LOADER_VERSION,
-                    "minecraft_version" to MINECRAFT_VERSION,
-                )
-            )
+            expand(rootProject.properties)
         }
     }
 
@@ -68,15 +69,3 @@ tasks {
     }
 }
 
-dependencies {
-    minecraft("com.mojang:minecraft:${MINECRAFT_VERSION}")
-    mappings(loom.layered {
-        officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-$PARCHMENT_MC_VERSION:$PARCHMENT_VERSION@zip")
-    })
-
-    modImplementation("net.fabricmc:fabric-loader:${FABRIC_LOADER_VERSION}")
-    modImplementation("net.fabricmc.fabric-api:fabric-api:${FABRIC_API_VERSION}")
-
-    implementation(project.project(":common").sourceSets.getByName("main").output)
-}
