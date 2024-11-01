@@ -1,6 +1,7 @@
 @file:Suppress("UnstableApiUsage")
 
 import net.fabricmc.loom.task.RemapJarTask
+import net.fabricmc.loom.task.RemapSourcesJarTask
 
 
 plugins {
@@ -46,19 +47,30 @@ loom {
 
 tasks {
     withType<JavaCompile> {
+        // include common code in compiled jar
         source(project(":common").sourceSets.main.get().allSource)
     }
+    java {
+        // generate a sources jar
+        withSourcesJar()
+    }
 
+    // put all artifacts in the right directory
     withType<Jar> {
         destinationDirectory = rootDir.resolve("build").resolve("libs_fabric")
     }
     withType<RemapJarTask> {
         destinationDirectory = rootDir.resolve("build").resolve("libs_fabric")
     }
+    withType<RemapSourcesJarTask> {
+        destinationDirectory = rootDir.resolve("build").resolve("libs_fabric")
+    }
 
+    // add common javadoc to jar
     javadoc { source(project(":common").sourceSets.main.get().allJava) }
 
     processResources {
+        // add common resources to jar
         from(project(":common").sourceSets.main.get().resources)
 
         // make all properties defined in gradle.properties usable in the neoforge.mods.toml
