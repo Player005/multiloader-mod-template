@@ -15,6 +15,6 @@
 
   ],
   "depends": {
-
+    "minecraft": "${mc_versions_fabric}"
   }
 }

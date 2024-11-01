@@ -11,7 +11,12 @@ displayName = "${mod_name}"
 logoFile = "icon.png"
 description = '''${mod_description}'''
 
-# Specify dependencies like this:
+[[dependencies.${mod_id}]]
+modId = "minecraft"
+type = "required"
+versionRange = "${mc_versions_neo}"
+
+# Specify additional dependencies like this:
 #[[dependencies.${mod_id}]]
 #modId = "my_dependency_mod"
 #mandatory = true # if the dependency is optional or required
