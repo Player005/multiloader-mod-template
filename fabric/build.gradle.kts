@@ -50,19 +50,12 @@ tasks {
         // include common code in compiled jar
         source(project(":common").sourceSets.main.get().allSource)
     }
-    java {
-        // generate a sources jar
-        withSourcesJar()
-    }
 
     // put all artifacts in the right directory
     withType<Jar> {
         destinationDirectory = rootDir.resolve("build").resolve("libs_fabric")
     }
     withType<RemapJarTask> {
-        destinationDirectory = rootDir.resolve("build").resolve("libs_fabric")
-    }
-    withType<RemapSourcesJarTask> {
         destinationDirectory = rootDir.resolve("build").resolve("libs_fabric")
     }
 
