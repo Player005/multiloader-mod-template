@@ -76,7 +76,8 @@ subprojects {
 
     base {
         // format artifact names as [mod_id]-[loader]-[mc_version]-[mod_version].jar
-        archivesName = "${rootProject.properties["mod_id"]}-${project.name}-${rootProject.properties["minecraft_version"]}"
+        archivesName =
+            "${rootProject.properties["mod_id"]}-${project.name}-${rootProject.properties["minecraft_version"]}"
     }
 
     dependencies {

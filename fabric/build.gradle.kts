@@ -1,8 +1,6 @@
 @file:Suppress("UnstableApiUsage")
 
 import net.fabricmc.loom.task.RemapJarTask
-import net.fabricmc.loom.task.RemapSourcesJarTask
-
 
 plugins {
     id("fabric-loom") version "1.8.9"
@@ -42,7 +40,7 @@ loom {
         }
     }
 
-    // TODO: AWs
+    accessWidenerPath = project(":common").loom.accessWidenerPath
 }
 
 tasks {

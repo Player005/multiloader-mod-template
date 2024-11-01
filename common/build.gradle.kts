@@ -24,7 +24,9 @@ dependencies {
 }
 
 loom {
-    // if you need to add access wideners, put the path here TODO
+    // If you need to add access wideners, put the path here
+    /** IMPORTANT: these will get added to fabric automatically, but since forge uses a different system   *
+    /   (access transformers), make sure to create access transformers the neoforge submodule if necessary */
     // accessWidenerPath = file("src/main/resources/NAME.accesswidener")
 
     mixin {
@@ -36,7 +38,3 @@ tasks {
     jar { enabled = false }
     remapJar { enabled = false }
 }
-
-//tasks.configureEach {
-//    group = null
-//}
