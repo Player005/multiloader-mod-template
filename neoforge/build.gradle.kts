@@ -1,21 +1,27 @@
 plugins {
-    id("net.neoforged.gradle.userdev") version "7.0.165"
+    id("net.neoforged.moddev") version "1.0.21"
 }
 
 // put a repositories block here for neoforge-only repositories if you need it
 
 dependencies {
-    implementation("net.neoforged:neoforge:${rootProject.properties["neoforge_version"]}")
-
     implementation(project.project(":common").sourceSets.getByName("main").output)
 
     // Add neoforge-only dependencies here.
 }
 
-subsystems {
+neoForge {
+    version = rootProject.properties["neoforge_version"].toString()
+
     parchment {
         minecraftVersion = rootProject.properties["parchment_version"].toString().split(":").first()
         mappingsVersion = rootProject.properties["parchment_version"].toString().split(":").last()
+    }
+
+    mods {
+        create(rootProject.properties["mod_id"].toString()) {
+            sourceSet(sourceSets.main.get())
+        }
     }
 }
 
@@ -50,19 +56,4 @@ tasks {
             expand(rootProject.properties)
         }
     }
-}
-
-runs {
-    configureEach {
-        modSource(project.sourceSets.main.get())
-    }
-    named("client") {
-        client()
-        shouldExportToIDE(true)
-    }
-}
-
-accessTransformers {
-    // TODO
-//    file("src/main/resources/META-INF/accesstransformer.cfg")
 }
