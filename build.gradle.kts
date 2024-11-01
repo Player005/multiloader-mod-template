@@ -68,10 +68,11 @@ subprojects {
     }
 
     version = properties["mod_version"].toString()
-    group = "net.player005.vegandelightfabric"
+    group = properties["mod_group"].toString()
 
     base {
-        archivesName = "vegan-delight-${project.name}-${rootProject.properties["minecraft_version"]}"
+        // format artifact names as [mod_id]-[loader]-[mc_version]-[mod_version].jar
+        archivesName = "${rootProject.properties["mod_id"]}-${project.name}-${rootProject.properties["minecraft_version"]}"
     }
 
     dependencies {
