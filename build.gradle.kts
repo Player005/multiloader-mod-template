@@ -36,6 +36,14 @@ subprojects {
         }
     }
 
+    // tell idea to download sources and javadocs when importing
+    idea {
+        module {
+            isDownloadSources = true
+            isDownloadJavadoc = true
+        }
+    }
+
     java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
     tasks {
@@ -48,7 +56,7 @@ subprojects {
         }
 
         jar {
-            // put all built jars in the same dir (build/libs)
+            // put all built jars in the correct directory
             destinationDirectory = rootDir.resolve("build").resolve("libs_${project.name}")
 
             // add license file to jars
