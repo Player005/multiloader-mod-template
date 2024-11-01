@@ -9,8 +9,12 @@ subprojects {
     apply(plugin = "idea")
     apply(plugin = "maven-publish")
 
-    // Add parchment and modrinth maven repositories for convenience
     repositories {
+        mavenCentral()
+        mavenLocal()
+
+        // Add parchment and modrinth maven repositories for convenience
+        // filters are added so only relevant dependencies are queried from these repos
         exclusiveContent {
             forRepository {
                 maven {
@@ -44,12 +48,12 @@ subprojects {
         }
     }
 
-    java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+    java.toolchain.languageVersion = JavaLanguageVersion.of(rootProject.properties["java_version"].toString())
 
     tasks {
         withType<JavaCompile> {
             options.encoding = "UTF-8"
-            options.release.set(21)
+            options.release.set(rootProject.properties["java_version"].toString().toInt())
         }
         withType<GenerateModuleMetadata>().configureEach {
             enabled = false
