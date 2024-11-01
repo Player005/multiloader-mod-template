@@ -1,3 +1,5 @@
+import org.slf4j.event.Level
+
 plugins {
     id("net.neoforged.moddev") version "1.0.21"
 }
@@ -18,6 +20,26 @@ neoForge {
         mappingsVersion = rootProject.properties["parchment_version"].toString().split(":").last()
     }
 
+    runs {
+        create("Client") {
+            client()
+        }
+        create("Server") {
+            server()
+        }
+
+        configureEach {
+            // Recommended logging data for userdev environment
+            // The markers can be added/remove as needed separated by commas.
+            // "SCAN": For mods scan.
+            // "REGISTRIES": For firing of registry events.
+            // "REGISTRYDUMP": For getting the contents of all registries.
+            systemProperty("forge.logging.markers", "REGISTRIES")
+
+            logLevel = Level.DEBUG
+        }
+    }
+
     mods {
         create(rootProject.properties["mod_id"].toString()) {
             sourceSet(sourceSets.main.get())
@@ -28,7 +50,7 @@ neoForge {
 tasks {
     jar {
         // add common code to jar
-        val main = project.project(":common").sourceSets.getByName("main")
+        val main = project.project(":common").sourceSets.main.get()
         from(main.output.classesDirs)
         from(main.output.resourcesDir)
     }
