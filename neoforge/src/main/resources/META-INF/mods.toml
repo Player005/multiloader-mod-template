@@ -1,5 +1,5 @@
 modLoader = "javafml"
-loaderVersion = "${neo_loader_version_range}"
+loaderVersion = "${forge_loader_version_range}"
 
 license = "${mod_license}"
 
@@ -10,11 +10,6 @@ displayName = "${mod_name}"
 
 logoFile = "icon.png"
 description = '''${mod_description}'''
-
-[[dependencies.${mod_id}]]
-modId = "minecraft"
-type = "required"
-versionRange = "${mc_versions_neo}"
 
 # Specify additional dependencies like this:
 #[[dependencies.${mod_id}]]
