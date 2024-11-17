@@ -1,7 +1,6 @@
 plugins {
     id("net.minecraftforge.gradle") version "[6.0,6.2)"
     id("org.parchmentmc.librarian.forgegradle") version "1.2.+"
-//    id("org.spongepowered.mixin") version "0.7-SNAPSHOT"
 }
 
 // put a repositories block here for neoforge-only repositories if you need it

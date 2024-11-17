@@ -4,7 +4,7 @@ import net.minecraftforge.eventbus.api.IEventBus;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.javafmlmod.FMLJavaModLoadingContext;
 
-@Mod("my_mod_id")
+@Mod(MyMod.modID)
 public class MyModNeoforge {
 
     public static IEventBus modEventBus;
@@ -13,7 +13,7 @@ public class MyModNeoforge {
     public MyModNeoforge() {
         MyModNeoforge.modEventBus = FMLJavaModLoadingContext.get().getModEventBus();
 
-        //MyMod.init();
+        MyMod.init();
         // Your neoforge initialisation code here
     }
 }
