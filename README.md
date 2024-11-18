@@ -12,7 +12,7 @@
 1. **Add mod info** <br>
    Check the gradle.properties file and set your mod id, package, name and version
 2. **IDE integration** <br>
-   First, import your repo into IDEA and import the gradle project (this might take a while). Once done, run the `genSources` task and then use the "download sources" button in your IDE. This ensures you have access to the Minecraft source code in all modules
+   First, import your repo into IDEA and import the gradle project if it isn't importing already (this might take a while). Once done, run the `genSources` task in the fabric category and then use the "download sources" button in your IDE. This ensures you have access to the Minecraft source code in all modules
 3. **Rename package** <br>
    In the `common`, `fabric` and `neoforge` modules, refactor the package name from `net.yourpackage.yourmod` to your actual package name. Also adjust the java file names and the `modID` field
 4. **Done** <br>
