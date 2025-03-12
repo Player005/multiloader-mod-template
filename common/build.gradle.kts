@@ -1,7 +1,7 @@
 @file:Suppress("UnstableApiUsage")
 
 plugins {
-    id("fabric-loom") version ("1.8.9")
+    id("fabric-loom") version ("1.10-SNAPSHOT")
 }
 
 // you can put a repositories block here if you need common dependencies from other sources than modrinth
