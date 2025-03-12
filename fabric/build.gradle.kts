@@ -3,10 +3,12 @@
 import net.fabricmc.loom.task.RemapJarTask
 
 plugins {
-    id("fabric-loom") version "1.8.9"
+    id("fabric-loom") version "1.10-SNAPSHOT"
 }
 
 // add a repositories block here for fabric-only dependencies if you need it
+
+dependencies.project(":common")
 
 dependencies {
     minecraft("com.mojang:minecraft:${rootProject.properties["minecraft_version"]}")
