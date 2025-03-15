@@ -52,6 +52,7 @@ tasks {
         // add common resources to jar
         from(project(":common").sourceSets.main.get().resources)
 
+        // the properties listed here can be used in the fabric.mod.json
         val properties =
             listOf("mc_versions_fabric", "mod_version", "mod_id", "mod_name", "mod_description", "mod_authors", "mod_license")
 
@@ -59,10 +60,20 @@ tasks {
         properties.forEach { map[it] = rootProject.properties[it].toString() }
         inputs.property("property_map", map)
 
-        // make all properties defined in gradle.properties usable in the neoforge.mods.toml
         filesMatching("fabric.mod.json") {
             @Suppress("UNCHECKED_CAST")
             expand(inputs.properties["property_map"] as Map<String, String>)
+        }
+
+        // handle platform conversions if enabled
+        inputs.property("handle_fluid_conversion", rootProject.properties["handle_fluid_conversion"])
+        inputs.property("unified_load_conditions", rootProject.properties["unified_load_conditions"])
+
+        filesMatching("data/**/*.json") {
+            if (inputs.properties["handle_fluid_conversion"].toString().toBoolean())
+                convertFluidUnitsFabric()
+            if (inputs.properties["unified_load_conditions"].toString().toBoolean())
+                processUnifiedLoadConditionsFabric()
         }
     }
 
@@ -72,5 +83,57 @@ tasks {
 
     named("test").configure {
         enabled = false
+    }
+}
+
+
+fun ContentFilterable.convertFluidUnitsFabric() {
+    filter { line ->
+        var result = line.replace(""""(\d*\.?\d*)_droplets"""".toRegex(), "$1")
+        val regex = """"(\d*\.?\d*)_millibuckets"""".toRegex()
+        regex.find(line)?.let { result = result.replace(regex, (it.groups[1]!!.value.toInt() * 81).toString()) }
+        result
+    }
+}
+
+fun AbstractCopyTask.processUnifiedLoadConditionsFabric() {
+    filter { line ->
+        // I am very sorry for anyone who tries to read or understand this
+        line.replace(
+            """^(\s*)"load_conditions":""".toRegex(),
+            "$1\"fabric:load_conditions\":"
+        )
+            .replace(
+                """^(\s*\{?\s*)"condition":\s*"mod_loaded"""".toRegex(),
+                "$1\"condition\": \"fabric:all_mods_loaded\""
+            )
+            .replace(
+                """^(\s*)"mod":\s*"(.*)"""".toRegex(),
+                "$1\"values\": [\"$2\"]"
+            )
+            .replace(
+                """^(\s*\{?\s*)"condition":\s*"and"""".toRegex(),
+                "$1\"condition\": \"fabric:and\""
+            )
+            .replace(
+                """^(\s*\{?\s*)"condition":\s*"or"""".toRegex(),
+                "$1\"condition\": \"fabric:or\""
+            )
+            .replace(
+                """^(\s*\{?\s*)"condition":\s*"is_fabric"""".toRegex(),
+                "$1\"condition\": \"true\""
+            )
+            .replace(
+                """^(\s*\{?\s*)"condition":\s*"is_neoforge"""".toRegex(),
+                "$1\"condition\": \"false\""
+            )
+            .replace(
+                """^(\s*\{?\s*)"condition":\s*"true"""".toRegex(),
+                "$1\"condition\": \"fabric:true\""
+            )
+            .replace(
+                """^(\s*\{?\s*)"condition":\s*"false"""".toRegex(),
+                "$1\"condition\": \"fabric:not\", \"value\": {\"condition\": \"fabric:true\"}"
+            )
     }
 }
