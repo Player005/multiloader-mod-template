@@ -27,21 +27,6 @@ dependencies {
 }
 
 loom {
-    runs {
-        named("client") {
-            client()
-            configName = "Fabric Client"
-            ideConfigGenerated(true)
-            runDir("run")
-        }
-        named("server") {
-            server()
-            configName = "Fabric Server"
-            ideConfigGenerated(true)
-            runDir("run")
-        }
-    }
-
     // include access wideners from common
     accessWidenerPath = project(":common").loom.accessWidenerPath
 }

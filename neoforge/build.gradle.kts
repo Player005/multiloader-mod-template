@@ -1,7 +1,5 @@
-import org.slf4j.event.Level
-
 plugins {
-    id("net.neoforged.moddev") version "2.0.78"
+    id("net.neoforged.moddev.legacyforge") version "2.0.78"
 }
 
 // put a repositories block here for neoforge-only repositories if you need it
@@ -12,7 +10,7 @@ dependencies {
     // Add neoforge-only dependencies here.
 }
 
-neoForge {
+legacyForge {
     version = rootProject.properties["neoforge_version"].toString()
 
     parchment {
@@ -23,20 +21,7 @@ neoForge {
     runs {
         create("Client") {
             client()
-        }
-        create("Server") {
-            server()
-        }
-
-        configureEach {
-            // Recommended logging data for userdev environment
-            // The markers can be added/remove as needed separated by commas.
-            // "SCAN": For mods scan.
-            // "REGISTRIES": For firing of registry events.
-            // "REGISTRYDUMP": For getting the contents of all registries.
-            systemProperty("forge.logging.markers", "REGISTRIES")
-
-            logLevel = Level.DEBUG
+            disableIdeRun()
         }
     }
 
@@ -74,9 +59,14 @@ tasks {
         // include common resources
         from(project(":common").sourceSets.main.get().resources)
 
-        // make all properties defined in gradle.properties usable in the neoforge.mods.toml
-        filesMatching("META-INF/neoforge.mods.toml") {
+        // make all properties defined in gradle.properties usable in the mods.toml file
+        filesMatching("META-INF/mods.toml") {
             expand(rootProject.properties)
         }
+    }
+
+    // put all artifacts in the right directory
+    withType<Jar> {
+        destinationDirectory = rootDir.resolve("build").resolve("libs_forge")
     }
 }
