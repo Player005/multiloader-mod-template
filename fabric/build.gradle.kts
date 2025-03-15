@@ -40,6 +40,7 @@ loom {
         }
     }
 
+    // include access wideners from common
     accessWidenerPath = project(":common").loom.accessWidenerPath
 }
 

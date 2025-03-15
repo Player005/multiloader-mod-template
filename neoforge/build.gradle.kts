@@ -62,15 +62,16 @@ tasks {
     // NeoGradle compiles the game, but we don't want to add our common code to the game's code
     val notNeoTask: (Task) -> Boolean = { !it.name.startsWith("neo") && !it.name.startsWith("compileService") }
 
+    // add common code & javadoc to built jars (except for NeoGradle jars)
     withType<JavaCompile>().matching(notNeoTask).configureEach {
         source(project(":common").sourceSets.main.get().allSource)
     }
-
     withType<Javadoc>().matching(notNeoTask).configureEach {
         source(project(":common").sourceSets.main.get().allSource)
     }
 
     withType<ProcessResources>().matching(notNeoTask).configureEach {
+        // include common resources
         from(project(":common").sourceSets.main.get().resources)
 
         // make all properties defined in gradle.properties usable in the neoforge.mods.toml
