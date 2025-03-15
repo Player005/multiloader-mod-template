@@ -52,9 +52,17 @@ tasks {
         // add common resources to jar
         from(project(":common").sourceSets.main.get().resources)
 
+        val properties =
+            listOf("mc_versions_fabric", "mod_version", "mod_id", "mod_name", "mod_description", "mod_authors", "mod_license")
+
+        val map = mutableMapOf<String, String>()
+        properties.forEach { map[it] = rootProject.properties[it].toString() }
+        inputs.property("property_map", map)
+
         // make all properties defined in gradle.properties usable in the neoforge.mods.toml
         filesMatching("fabric.mod.json") {
-            expand(rootProject.properties)
+            @Suppress("UNCHECKED_CAST")
+            expand(inputs.properties["property_map"] as Map<String, String>)
         }
     }
 
@@ -66,4 +74,3 @@ tasks {
         enabled = false
     }
 }
-

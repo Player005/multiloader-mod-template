@@ -59,9 +59,18 @@ tasks {
         // include common resources
         from(project(":common").sourceSets.main.get().resources)
 
-        // make all properties defined in gradle.properties usable in the mods.toml file
-        filesMatching("META-INF/mods.toml") {
-            expand(rootProject.properties)
+        // the properties listed here can be used in the mods.toml
+        val properties =
+            listOf("mc_versions_neo", "mod_version", "mod_id", "mod_name", "mod_description", "mod_authors", "mod_license")
+
+        // store a map of the properties so the configuration cache can be used
+        val map = mutableMapOf<String, String>()
+        properties.forEach { map[it] = rootProject.properties[it].toString() }
+        inputs.property("property_map", map)
+
+        filesMatching("mods.toml") {
+            @Suppress("UNCHECKED_CAST")
+            expand(inputs.properties["property_map"] as Map<String, String>)
         }
     }
 
