@@ -5,4 +5,6 @@ modules.xml
 jarRepositories.xml
 compiler.xml
 gradle.xml
+misc.xml
+vcs.xml
 /libraries/
