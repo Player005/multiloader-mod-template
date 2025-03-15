@@ -1,7 +1,7 @@
 import org.slf4j.event.Level
 
 plugins {
-    id("net.neoforged.moddev") version "1.0.21"
+    id("net.neoforged.moddev") version "2.0.78"
 }
 
 // put a repositories block here for neoforge-only repositories if you need it
