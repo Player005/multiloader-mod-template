@@ -1,5 +1,3 @@
-import org.slf4j.event.Level
-
 plugins {
     id("net.neoforged.moddev") version "2.0.78"
 }
@@ -23,20 +21,7 @@ neoForge {
     runs {
         create("Client") {
             client()
-        }
-        create("Server") {
-            server()
-        }
-
-        configureEach {
-            // Recommended logging data for userdev environment
-            // The markers can be added/remove as needed separated by commas.
-            // "SCAN": For mods scan.
-            // "REGISTRIES": For firing of registry events.
-            // "REGISTRYDUMP": For getting the contents of all registries.
-            systemProperty("forge.logging.markers", "REGISTRIES")
-
-            logLevel = Level.DEBUG
+            disableIdeRun()
         }
     }
 
@@ -74,9 +59,18 @@ tasks {
         // include common resources
         from(project(":common").sourceSets.main.get().resources)
 
-        // make all properties defined in gradle.properties usable in the neoforge.mods.toml
+        // the properties listed here can be used in the mods.toml
+        val properties =
+            listOf("mc_versions_neo", "neo_loader_version_range", "mod_version", "mod_id", "mod_name", "mod_description", "mod_authors", "mod_license")
+
+        // store a map of the properties so the configuration cache can be used
+        val map = mutableMapOf<String, String>()
+        properties.forEach { map[it] = rootProject.properties[it].toString() }
+        inputs.property("property_map", map)
+
         filesMatching("META-INF/neoforge.mods.toml") {
-            expand(rootProject.properties)
+            @Suppress("UNCHECKED_CAST")
+            expand(inputs.properties["property_map"] as Map<String, String>)
         }
     }
 }
