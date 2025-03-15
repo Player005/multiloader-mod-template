@@ -1,0 +1,6 @@
+-XX:+IgnoreUnrecognizedVMOptions
+-XX:+AllowEnhancedClassRedefinition
+-XstartOnFirstThread
+-XX:+UseZGC
+-Xmx1G
+-Xms500M
