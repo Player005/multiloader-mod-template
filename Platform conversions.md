@@ -5,10 +5,8 @@ parts of datapacks such as fluid units and data loading conditions
 from a defined common format to the platform-specific formats.
 
 ## How to enable:
-Make sure that in the build.gradle.kts files in both the fabric
-and the neoforge directories, in the `processResources` block
-(around line 70), the function `convertFluidUnits()`, or
-`processUnifiedLoadConditions()`, respectively, are called.
+In the `gradle.properties` file, set the `convert_fluid_units` or
+`unified_load_conditions` property to `true`
 
 ## Fluid unit conversion
 Fabric usually uses droplets as a unit for fluids,
