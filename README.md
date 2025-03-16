@@ -64,6 +64,6 @@
    parts of datapacks such as fluid units and data loading conditions
    from a defined common format to the platform-specific formats.
 
-   See [Platform conversions.md](./Platform conversions.md) for more information.
+   See [platform_conversions.md](./platform_conversions.md) for more information.
 
 </details>
