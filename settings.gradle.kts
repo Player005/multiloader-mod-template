@@ -1,3 +1,5 @@
+rootProject.name = "multiloader-mod-template" // TODO: replace with your mod id
+
 pluginManagement {
     repositories {
         maven("https://maven.fabricmc.net/")

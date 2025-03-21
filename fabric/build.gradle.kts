@@ -27,6 +27,20 @@ dependencies {
 }
 
 loom {
+    runs {
+        val vmArgs = arrayOf("-XX:+UseZGC", "-XX:+IgnoreUnrecognizedVMOptions", "-XX:+AllowEnhancedClassRedefinition", "-Xms500M", "-Xmx2G")
+        named("client") {
+            client()
+            configName = "Fabric/Client"
+            vmArgs(*vmArgs)
+        }
+        named("server") {
+            server()
+            configName = "Fabric/Server"
+            vmArgs(*vmArgs)
+        }
+    }
+
     // include access wideners from common
     accessWidenerPath = project(":common").loom.accessWidenerPath
 }
