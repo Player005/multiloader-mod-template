@@ -19,9 +19,14 @@ neoForge {
     }
 
     runs {
+        val vmArgs = arrayOf("-XX:+UseZGC", "-XX:+IgnoreUnrecognizedVMOptions", "-XX:+AllowEnhancedClassRedefinition", "-Xms500M", "-Xmx2G")
         create("Client") {
             client()
-            disableIdeRun()
+            jvmArguments.addAll(*vmArgs)
+        }
+        create("Server") {
+            server()
+            jvmArguments.addAll(*vmArgs)
         }
     }
 
