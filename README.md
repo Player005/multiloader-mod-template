@@ -7,7 +7,7 @@
 🚀 **Blazingly fast** thanks to gradle configuration cache*<br>
 📖 **Well-documented** (see the [More information](#more-information) section below)<br>
 🔋 **Comes with batteries included** with working run configurations as well as GitHub actions enabled by default <br> 
-<img alt="crossed out copyright icon" height="16" src="https://upload.wikimedia.org/wikipedia/commons/e/eb/PD-icon-black.svg" width="16"/>
+<img style="height: 1rem" alt="crossed out copyright icon" src="https://upload.wikimedia.org/wikipedia/commons/e/eb/PD-icon-black.svg"/>
 **Free of copyright restrictions** as it is subject to the public domain by using [Unlicense](https://unlicense.org/)<br>
 
 > *Importing and building the project for the first time might take quite a while, but
@@ -30,8 +30,8 @@
    Working run configurations are automatically generated - just select the relevant one in the top right of your IDE window and run the game right from your IDE.
 
 ## More information
-<details>
-   <summary><h4>Project structure</h4></summary>
+<details style="margin-bottom: 5px">
+   <summary><b>Project structure</b></summary>
    
    A multi-loader project consists of a root gradle project and three subprojects: `common`, `fabric` and `neoforge`. <br>
    The root project should not contain any code. It's build.gradle.kts file is used for some  common configuration for all the subprojects. <br>
@@ -41,8 +41,9 @@
    The `fabric` and `neoforge` subprojects contain initialisation and **loader-specific code**, as well as loader-specific resources like `fabric.mod.json` and `neoforge.mods.toml` <br>
    
 </details>
-<details>
-   <summary><h4>Switching Minecraft versions</h4></summary>
+
+<details style="margin-bottom: 5px">
+   <summary><b>Switching Minecraft versions</b></summary>
 
    In order to change the target Minecraft version, just set the `minecraft_version` property in the [`gradle.properties`](gradle.properties)
    file and adapt the other properties
@@ -52,8 +53,9 @@
    Therefore, this template provides a `1.20.1` branch that you can use instead if you want to use Minecraft versions from 1.17 to 1.20.1.
 
 </details>
-<details>
-   <summary><h4>Access wideners/Access transformers</h4></summary>
+
+<details style="margin-bottom: 5px">
+   <summary><b>Access wideners/Access transformers</b></summary>
 
    To use access wideners, create a `.accesswidener` file somewhere in your common resources directory and define the path in the `common/build.gradle.kts` file (~ line 30).
    These access wideners will be loaded in `common` and `fabric`, but they won't work on neoforge. That means you will need to create an `accesstransfomer.cfg` file inside
@@ -62,8 +64,9 @@
    [More information on access wideners](https://wiki.fabricmc.net/tutorial:accesswideners) / [More information on access transformers](https://docs.neoforged.net/docs/advanced/accesstransformers/#the-access-transformer-specification)
 
 </details>
-<details>
-   <summary><h4>Mixins</h4></summary>
+
+<details style="margin-bottom: 5px">
+   <summary><b>Mixins</b></summary>
 
    To use mixins in your project, just create a mixin configuration file (`mymod.mixins.json`) in your common resources and add the path of it to your
    [`fabric.mod.json`](fabric/src/main/resources/fabric.mod.json) and [`neoforge.mods.toml`](neoforge/src/main/resources/META-INF/neoforge.mods.toml) files. No additional configuration required.
@@ -71,8 +74,9 @@
    More about mixins: [Mixin introduction](https://wiki.fabricmc.net/tutorial:mixin_introduction) / [Mixin examples](https://wiki.fabricmc.net/tutorial:mixin_examples)
 
 </details>
-<details>
-   <summary><h4>Platform-specific conversions</h4></summary>
+
+<details style="margin-bottom: 5px">
+   <summary><b>Platform-specific conversions</b></summary>
 
    This template can automatically convert some platform-specific
    parts of datapacks such as fluid units and data loading conditions
@@ -81,8 +85,9 @@
    See [platform_conversions.md](./platform_conversions.md) for more information.
 
 </details>
+
 <details>
-   <summary><h4>Automatic Release Publishing</h4></summary>
+   <summary><b>Automatic Release Publishing</b></summary>
 
    This template uses [mc-publish](https://github.com/Kir-Antipov/mc-publish)
    to allow you to automatically publish your mod to Modrinth, Curseforge and GitHub releases.
