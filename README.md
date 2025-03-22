@@ -66,7 +66,7 @@
    <summary><h4>Mixins</h4></summary>
 
    To use mixins in your project, just create a mixin configuration file (`mymod.mixins.json`) in your common resources and add the path of it to your
-   [`fabric.mod.json`](fabric/src/main/resources/fabric.mod.json) and [`neoforge.mods.toml`](neoforge/src/main/resources/META-INF/neoforge.mods.toml) files. No additional configuration required.
+   [`fabric.mod.json`](fabric/src/main/resources/fabric.mod.json) and [`mods.toml`](neoforge/src/main/resources/META-INF/mods.toml) files. No additional configuration required.
 
    More about mixins: [Mixin introduction](https://wiki.fabricmc.net/tutorial:mixin_introduction) / [Mixin examples](https://wiki.fabricmc.net/tutorial:mixin_examples)
 
