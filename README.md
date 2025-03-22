@@ -4,7 +4,7 @@
 
 ### Features:
 😎 **Easy to use** (see the [Getting started](#getting-started) section)<br>
-🚀 **Blazingly fast** thanks to gradle configuration cache<br>
+🚀 **Blazingly fast** thanks to gradle configuration cache*<br>
 📖 **Well-documented** (see the [More information](#more-information) section below)<br>
 🔋 **Comes with batteries included** with working run configurations as well as GitHub actions enabled by default <br> 
 <img alt="crossed out copyright icon" height="16" src="https://upload.wikimedia.org/wikipedia/commons/e/eb/PD-icon-black.svg" width="16"/>
