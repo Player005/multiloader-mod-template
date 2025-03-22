@@ -43,8 +43,8 @@ Fabric and neoforge both have a system to allow resources to only
 be loaded when certain conditions are loaded, they, however use
 a slightly different syntax.
 
-When enabled, this template will fix that by allowing you to specify
-conditions like this:
+When enabled, this template will fix that by providing a common syntax
+that will be automatically mapped to the platform-specific syntax at build time.
 ```json5
 {
   "load_conditions": [
@@ -98,7 +98,7 @@ This will only load the recipe on neoforge.
 Change `"is_neoforge"` to `"is_fabric"` to only load the recipe on
 fabric instead.
 
-**logical or/logical and**
+**Logical or/logical and**
 
 Example:
 ```json5
