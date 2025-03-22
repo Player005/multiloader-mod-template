@@ -2,6 +2,12 @@ name: Build and Release
 
 on: release
 
+# TODO: for automatic publishing, set your project's modrinth and curseforge IDs here
+# See "Automatic Release Publishing" section in README for details
+env:
+  MODRINTH_ID: abcdefgh
+  CURSEFORGE_ID: 1234567
+
 jobs:
   build:
     permissions:
@@ -31,11 +37,11 @@ jobs:
       - name: Upload Fabric artifacts
         uses: Kir-Antipov/mc-publish@v3.3
         with:
-          #modrinth-id: aaaaaaaa # TODO: for automatic publishing, set your project's modrinth id here and add a repository secret named MODRINTH_TOKEN
-          #modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          modrinth-id: ${{ env.MODRINTH_ID }}
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
 
-          #curseforge-id: 1111111 # TODO: set your project's curseforge id here and add a repository secret named CURSEFORGE_TOKEN if you want to enable publishing to cf
-          #curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+          curseforge-id: ${{ env.CURSEFORGE_ID }}
+          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
 
           github-token: ${{ secrets.GITHUB_TOKEN }} # GitHub token is provided by GH automatically
 
@@ -44,11 +50,11 @@ jobs:
       - name: Upload Forge artifacts
         uses: Kir-Antipov/mc-publish@v3.3
         with:
-          #modrinth-id: aaaaaaaa # TODO: add modrinth/curseforge ids here too
-          #modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
+          modrinth-id: ${{ env.MODRINTH_ID }}
+          modrinth-token: ${{ secrets.MODRINTH_TOKEN }}
 
-          #curseforge-id: 1111111
-          #curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
+          curseforge-id: ${{ env.CURSEFORGE_ID }}
+          curseforge-token: ${{ secrets.CURSEFORGE_TOKEN }}
 
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
