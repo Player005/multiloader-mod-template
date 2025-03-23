@@ -6,7 +6,7 @@
 😎 **Easy to use** (see the [Getting started](#getting-started) section)<br>
 🚀 **Blazingly fast** thanks to gradle configuration cache*<br>
 📖 **Well-documented** (see the [More information](#more-information) section below)<br>
-🔋 **Comes with batteries included** with working run configurations as well as GitHub actions enabled by default <br> 
+🔋 **Batteries included** with working run configurations as well as GitHub actions enabled by default <br> 
 <img style="height: 1rem" alt="crossed out copyright icon" src="https://upload.wikimedia.org/wikipedia/commons/e/eb/PD-icon-black.svg"/>
 **Free of copyright restrictions** as it is subject to the public domain by using [Unlicense](https://unlicense.org/)<br>
 
