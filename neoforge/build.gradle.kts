@@ -121,6 +121,10 @@ object FabricConversions {
                 "$1\"modid\": \"$2\""
             )
             .replace(
+                """^(\s*)"not":\s*\{""".toRegex(),
+                "$1\"type\": \"neoforge:not\",\n$1\"value\": {"
+            )
+            .replace(
                 """^(\s*\{?\s*)"condition":\s*"and"""".toRegex(),
                 "$1\"type\": \"neoforge:and\""
             )

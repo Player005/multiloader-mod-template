@@ -129,6 +129,10 @@ object FabricConversions {
                 "$1\"values\": [\"$2\"]"
             )
             .replace(
+                """^(\s*)"not":\s*\{""".toRegex(),
+                "$1\"type\": \"fabric:not\",\n$1\"value\": {"
+            )
+            .replace(
                 """^(\s*\{?\s*)"condition":\s*"and"""".toRegex(),
                 "$1\"condition\": \"fabric:and\""
             )

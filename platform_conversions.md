@@ -98,6 +98,27 @@ This will only load the recipe on neoforge.
 Change `"is_neoforge"` to `"is_fabric"` to only load the recipe on
 fabric instead.
 
+**Inverting conditions**
+
+To invert a condition, just put `"not": { ... }` around the condition
+
+Example:
+```json5
+{
+  "load_conditions": [
+    {
+      "not": {
+        // the condition you want to invert
+        "condition": "mod_loaded",
+        "mod": "create"
+      }
+    }
+  ]
+  // ...
+}
+```
+This would only load the recipe if the Create mod is not installed
+
 **Logical or/logical and**
 
 Example:
