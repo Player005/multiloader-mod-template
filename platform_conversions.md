@@ -70,7 +70,7 @@ Example:
   "load_conditions": [
     {
       "condition": "mod_loaded",
-      "mod": "create" // mod id of other mod
+      "modid": "create" // the id of the mod you want to check
     }
   ]
   // ...

@@ -125,7 +125,7 @@ object FabricConversions {
                 "$1\"condition\": \"fabric:all_mods_loaded\""
             )
             .replace(
-                """^(\s*)"mod":\s*"(.*)"""".toRegex(),
+                """^(\s*)"modid":\s*"(.*)"""".toRegex(),
                 "$1\"values\": [\"$2\"]"
             )
             .replace(
