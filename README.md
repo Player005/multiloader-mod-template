@@ -11,7 +11,7 @@
 **Free of copyright restrictions** as it is subject to the public domain by using [Unlicense](https://unlicense.org/)<br>
 
 > *Importing and building the project for the first time might take quite a while, but
-> once that's done it will be super-fast!
+> once that's done building or running the project will be pretty fast!
 
 ## Getting started
 0. **Create your repo** <br>
