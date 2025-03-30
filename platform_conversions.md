@@ -4,6 +4,9 @@ This template can automatically convert some platform-specific
 parts of datapacks such as fluid units and data loading conditions
 from a defined common format to the platform-specific formats.
 
+If you want to see how this is used in practice, check out
+the [Create compatibility recipes in the VeganDelight mod](https://github.com/SayWhatSayMon/VeganDelight/tree/1.21.1/multiloader/common/src/main/resources/data/vegandelight/recipe/integration/create)
+
 ## How to enable:
 In the `gradle.properties` file, set the `convert_fluid_units` or
 `unified_load_conditions` property to `true`
