@@ -83,11 +83,11 @@ tasks {
 
         // do fluid unit conversions and unified load condition processing if enabled
         // see `Platform conversions.md` for more information
-        inputs.property("convert_fluid_units", rootProject.properties["convert_fluid_units"] == "true")
+        inputs.property("handle_fluid_unit_conversion", rootProject.properties["handle_fluid_unit_conversion"] == "true")
         inputs.property("unified_load_conditions", rootProject.properties["unified_load_conditions"] == "true")
 
         filesMatching("data/**/*.json") {
-            if (inputs.properties["convert_fluid_units"] as Boolean)
+            if (inputs.properties["handle_fluid_unit_conversion"] as Boolean)
                 filter(FabricConversions.fluidUnitConverter)
             if (inputs.properties["unified_load_conditions"] as Boolean)
                 filter(FabricConversions.unifiedLoadConditionProcessor)
