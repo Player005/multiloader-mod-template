@@ -31,11 +31,13 @@ loom {
         val vmArgs = arrayOf("-XX:+UseZGC", "-XX:+IgnoreUnrecognizedVMOptions", "-XX:+AllowEnhancedClassRedefinition", "-Xms500M", "-Xmx2G")
         named("client") {
             client()
+            runDir("../run/client/${properties["minecraft_version"]}")
             configName = "Fabric/Client"
             vmArgs(*vmArgs)
         }
         named("server") {
             server()
+            runDir("../run/server/${properties["minecraft_version"]}")
             configName = "Fabric/Server"
             vmArgs(*vmArgs)
         }

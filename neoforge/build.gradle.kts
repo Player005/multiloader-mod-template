@@ -22,10 +22,12 @@ neoForge {
         val vmArgs = arrayOf("-XX:+UseZGC", "-XX:+IgnoreUnrecognizedVMOptions", "-XX:+AllowEnhancedClassRedefinition", "-Xms500M", "-Xmx2G")
         create("Client") {
             client()
+            gameDirectory = rootProject.file("run/client/${rootProject.properties["minecraft_version"]}")
             jvmArguments.addAll(*vmArgs)
         }
         create("Server") {
             server()
+            gameDirectory = rootProject.file("run/server/${rootProject.properties["minecraft_version"]}")
             jvmArguments.addAll(*vmArgs)
         }
     }
