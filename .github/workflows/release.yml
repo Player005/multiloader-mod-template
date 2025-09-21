@@ -3,10 +3,11 @@ name: Build and Release
 on: release
 
 # TODO: for automatic publishing, set your project's modrinth and curseforge IDs here
-# See "Automatic Release Publishing" section in README for details
+# Also set the environment secrets "MODRINTH_TOKEN" and "CURSEFORGE_TOKEN" with respective tokens
+# See the "Automatic Release Publishing" section in README for details
 env:
-  MODRINTH_ID: abcdefgh
-  CURSEFORGE_ID: 1234567
+  MODRINTH_ID: abcdefgh # TODO
+  CURSEFORGE_ID: 1234567 # TODO
 
 jobs:
   build:
@@ -45,7 +46,9 @@ jobs:
 
           github-token: ${{ secrets.GITHUB_TOKEN }} # GitHub token is provided by GH automatically
 
-          files: build/libs/!(*-@(dev|sources|all)).jar
+          files: |
+            build/libs_fabric/!(*-@(dev|sources|all)).jar
+            build/libs_fabric/*-@(dev|sources|all).jar
 
       - name: Upload Forge artifacts
         uses: Kir-Antipov/mc-publish@v3.3
@@ -58,4 +61,6 @@ jobs:
 
           github-token: ${{ secrets.GITHUB_TOKEN }}
 
-          files: build/libs_forge/!(*-@(dev|sources|all)).jar
+          files: |
+            build/libs_neoforge/!(*-@(dev|sources|all)).jar
+            build/libs_neoforge/*-@(dev|sources|all).jar
