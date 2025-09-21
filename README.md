@@ -1,13 +1,10 @@
-# Gradle Multi-loader mod template (fabric/neoforge)
+# Gradle Minecraft Multi-loader mod template (fabric/[neo]forge)
 
-### An easy-to-use template for creating fabric and neoforge mods using gradle for Minecraft 1.17 to 1.21.1+
+### An easy-to-use template for creating multi-loader minecraft mods for fabric and neoforge (forge for mc <= 1.20.1). Works with Minecraft 1.17 to 1.21.8+
 
 ### Features:
 😎 **Easy to use** (see the [Getting started](#getting-started) section)<br>
 🚀 **Blazingly fast** thanks to gradle configuration cache*<br>
-📖 **Well-documented** (see the [More information](#more-information) section below)<br>
-🔋 **Batteries included** with working run configurations as well as GitHub actions enabled by default <br> 
-<img style="height: 1rem" alt="crossed out copyright icon" src="https://upload.wikimedia.org/wikipedia/commons/e/eb/PD-icon-black.svg"/>
 **Free of copyright restrictions** as it is subject to the public domain by using [Unlicense](https://unlicense.org/)<br>
 
 > *Importing and building the project for the first time might take quite a while, but
@@ -21,8 +18,11 @@
    Then, check the [`gradle.properties`](gradle.properties) file and set your mod info like id, package, name and authors there.
 2. **IDE integration** <br>
    First, import your repo into IDEA and import the gradle project if it isn't importing already (this might take a while).
-   Once done, you can run the `genSources` gradle task in the fabric category and then use the "download sources" button once that's finished to
-   ensure you have access to the Minecraft source code in all modules.
+   Once done, you can run the `genSources` gradle task in the fabric category to
+   ensure that you have access to the Minecraft source code in all modules.
+
+   For neoforge, IDEA might not automatically use the right sources, and will show a blue bar at the top when viewing minecraft / neoforge sources,
+   with a button named "attach sources" that you need to click to make it use the generated sources.
 4. **Rename package** <br>
    In the `common`, `fabric` and `neoforge` modules, refactor the package name from `net.yourpackage.yourmod` to your actual package name. Also adjust the java file names and the `modID` field
 5. **Done** <br>
@@ -47,10 +47,13 @@
 
    In order to change the target Minecraft version, just set the `minecraft_version` property in the [`gradle.properties`](gradle.properties)
    file and adapt the other properties
-   (`mc_versions_fabric`, `mc_versions_neo`, `parchment_version`, `neoforge_version`, `fabric_loader_version` and `fabric_api_version`) appropriately.
+   (`mc_versions_fabric`, `mc_versions_neo`, [`parchment_version`](https://parchmentmc.org/docs/getting-started), [`neoforge_version`](https://projects.neoforged.net/neoforged/neoforge),
+   [`fabric_loader_version`](https://fabricmc.net/develop/) and [`fabric_api_version`](https://fabricmc.net/develop/)) appropriately.
+   Just check the links for the latest versions for your desired minecraft version
 
-   This, however, only works for versions later than 1.20.1, because the neoforge ModDevGradle plugin only works for these newer versions.
-   Therefore, this template provides a `1.20.1` branch that you can use instead if you want to use Minecraft versions from 1.17 to 1.20.1.
+   Note that this only works for versions later than 1.20.1, because the neoforge ModDevGradle plugin only works for these newer versions.
+   Therefore, there is a seperate `1.20.1` branch that you need to use for Minecraft versions from 1.17 to 1.20.1. For all newer versions,
+   just use the 1.21.x branch and change the versions as described above.
 
 </details>
 
@@ -72,17 +75,6 @@
    [`fabric.mod.json`](fabric/src/main/resources/fabric.mod.json) and [`neoforge.mods.toml`](neoforge/src/main/resources/META-INF/neoforge.mods.toml) files. No additional configuration required.
 
    More about mixins: [Mixin introduction](https://wiki.fabricmc.net/tutorial:mixin_introduction) / [Mixin examples](https://wiki.fabricmc.net/tutorial:mixin_examples)
-
-</details>
-
-<details style="margin-bottom: 5px">
-   <summary><b>Platform-specific conversions</b></summary>
-
-   This template can automatically convert some platform-specific
-   parts of datapacks such as fluid units and data loading conditions
-   from a defined common format to the platform-specific formats.
-
-   See [platform_conversions.md](./platform_conversions.md) for more information.
 
 </details>
 
@@ -109,4 +101,4 @@
 </details>
 
 ### Have questions or need help?
-Please [contact me on Discord (@player.005)](https://discord.com/users/650714531844194304) or [open an issue on GitHub](https://github.com/Player005/multiloader-mod-template/issues/new).
+Please feel free to [contact me on Discord (@player.005)](https://discord.com/users/650714531844194304) or [open an issue on GitHub](https://github.com/Player005/multiloader-mod-template/issues/new).
