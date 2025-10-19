@@ -1,11 +1,18 @@
 package net.yourpackage.yourmod;
 
 public class MyMod {
-    static final String modID = "my_mod_id";
+    public static final String modID = "my_mod_id";
 
-    static void init() {
+    public static Platform platform;
+
+    static void init(Platform platform) {
+        // Your common initialisation code here
         System.out.println("Hi from example mod!");
 
-        // Your common initialisation code here
+        MyMod.platform = platform;
+
+        ModBlocks.init();
+        ModItems.init();
+        ModCreativeTab.init();
     }
 }
