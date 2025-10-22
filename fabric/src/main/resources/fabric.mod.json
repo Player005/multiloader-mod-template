@@ -9,6 +9,9 @@
   "entrypoints": {
     "main": [
       "net.yourpackage.yourmod.MyModFabric"
+    ],
+    "client": [
+      "net.yourpackage.yourmod.MyModFabricClient"
     ]
   },
   "mixins": [
