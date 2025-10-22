@@ -1,8 +1,10 @@
 @file:Suppress("UnstableApiUsage")
 
 import net.fabricmc.loom.task.RemapJarTask
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
+    kotlin("jvm") version "2.2.20"
     id("fabric-loom") version "1.10-SNAPSHOT"
 }
 
@@ -50,7 +52,7 @@ loom {
 }
 
 tasks {
-    withType<JavaCompile> {
+    withType<KotlinCompile> {
         // include common code in compiled jar
         source(project(":common").sourceSets.main.get().allSource)
     }
@@ -62,9 +64,6 @@ tasks {
     withType<RemapJarTask> {
         destinationDirectory = rootDir.resolve("build").resolve("libs_fabric")
     }
-
-    // add common javadoc to jar
-    javadoc { source(project(":common").sourceSets.main.get().allJava) }
 
     processResources {
         // add common resources to jar

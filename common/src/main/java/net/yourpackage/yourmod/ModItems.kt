@@ -1,30 +1,39 @@
-package net.yourpackage.yourmod;
+package net.yourpackage.yourmod
 
-import net.minecraft.core.Holder;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.Item;
+import net.minecraft.core.Holder
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.world.item.Item
+import java.util.function.Supplier
+import kotlin.properties.PropertyDelegateProvider
+import kotlin.properties.ReadOnlyProperty
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.function.Supplier;
+@Suppress("unused")
+object ModItems {
 
-import static net.yourpackage.yourmod.MyMod.platform;
+    // Register your items here by simply calling the register() method.
+    // Example:
+    val EXAMPLE_ITEM = register("my_item") { Item(Item.Properties()) }
 
-public class ModItems {
+    // Alternatively, if you use registerDelegated() you can omit the item id,
+    // which will instead be inferred from the variable name:
+    val MY_OTHER_ITEM: Holder<Item> by registerDelegated { Item(Item.Properties()) }
 
-    public static List<Holder<Item>> ALL_ITEMS = new ArrayList<>();
+    // You can even omit the lambda, if you just want a simple item
+    // without any special functionality:
+    val MY_OTHER_OTHER_ITEM: Holder<Item> by registerDelegated()
 
 
-    // put your custom items here
-    public static Holder<Item> EXAMPLE_ITEM = register("my_item", () -> new Item(new Item.Properties()));
-
-
-    private static Holder<Item> register(String id, Supplier<Item> item) {
-        var holder = platform.register(BuiltInRegistries.ITEM, ResourceLocation.fromNamespaceAndPath(MyMod.modID, id), item);
-        ALL_ITEMS.add(holder);
-        return holder;
+    private fun register(id: String, addToCreativeTab: Boolean = true, item: Supplier<Item>): Holder<Item> {
+        val holder = MyMod.register(BuiltInRegistries.ITEM, id, item)
+        if (addToCreativeTab) ModCreativeTab.ALL_ITEMS.add(holder)
+        return holder
     }
 
-    public static void init() { }
+    private fun registerDelegated(addToTab: Boolean = true, itemSupplier: () -> Item = { Item(Item.Properties()) }) =
+        PropertyDelegateProvider { _: Any, property ->
+            val item = register(property.name.lowercase(), addToTab, itemSupplier)
+            ReadOnlyProperty { _: Any, _ -> item }
+        }
+
+    fun init() {}
 }

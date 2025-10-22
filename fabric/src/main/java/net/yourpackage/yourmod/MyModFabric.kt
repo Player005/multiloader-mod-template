@@ -1,21 +1,18 @@
-package net.yourpackage.yourmod;
+package net.yourpackage.yourmod
 
-import net.fabricmc.api.ModInitializer;
-import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup;
-import net.minecraft.world.item.CreativeModeTab;
+import net.fabricmc.api.ModInitializer
+import net.fabricmc.fabric.api.itemgroup.v1.FabricItemGroup
+import net.minecraft.world.item.CreativeModeTab
 
-public class MyModFabric implements ModInitializer {
-    @Override
-    public void onInitialize() {
-        MyMod.init(new FabricPlatform());
+class MyModFabric : ModInitializer {
+    override fun onInitialize() {
+        MyMod.init(FabricPlatform())
         // Your fabric initialisation code here
     }
 
-    public static class FabricPlatform implements Platform {
-
-        @Override
-        public CreativeModeTab.Builder creativeTabBuilder() {
-            return FabricItemGroup.builder();
+    class FabricPlatform : Platform {
+        override fun creativeTabBuilder(): CreativeModeTab.Builder {
+            return FabricItemGroup.builder()
         }
     }
 }

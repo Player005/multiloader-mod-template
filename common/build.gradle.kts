@@ -1,6 +1,7 @@
 @file:Suppress("UnstableApiUsage")
 
 plugins {
+    kotlin("jvm") version "2.2.20"
     id("fabric-loom") version ("1.10-SNAPSHOT")
 }
 

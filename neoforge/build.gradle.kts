@@ -1,11 +1,20 @@
+import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+
 plugins {
+    kotlin("jvm") version "2.2.20"
     id("net.neoforged.moddev") version "2.0.78"
 }
 
-// Put a repositories block here for neoforge-only dependencies that do not use modrinth maven.
+repositories {
+    maven {
+        name = "Kotlin for Forge"
+        setUrl("https://thedarkcolour.github.io/KotlinForForge/")
+    }
+}
 
 dependencies {
     implementation(project.project(":common").sourceSets.getByName("main").output)
+    implementation("thedarkcolour:kotlinforforge-neoforge:5.10.0")
 
     // Add neoforge-only dependencies here.
 }
@@ -54,11 +63,7 @@ tasks {
     // NeoGradle compiles the game, but we don't want to add our common code to the game's code
     val notNeoTask: (Task) -> Boolean = { !it.name.startsWith("neo") && !it.name.startsWith("compileService") }
 
-    // add common code & javadoc to built jars (except for NeoGradle jars)
-    withType<JavaCompile>().matching(notNeoTask).configureEach {
-        source(project(":common").sourceSets.main.get().allSource)
-    }
-    withType<Javadoc>().matching(notNeoTask).configureEach {
+    withType<KotlinCompile>().configureEach {
         source(project(":common").sourceSets.main.get().allSource)
     }
 

@@ -1,30 +1,28 @@
-package net.yourpackage.yourmod;
+package net.yourpackage.yourmod
 
-import net.minecraft.client.Minecraft;
-import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.CreativeModeTab;
-import org.jetbrains.annotations.Contract;
+import net.minecraft.client.Minecraft
+import net.minecraft.core.Holder
+import net.minecraft.core.Registry
+import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.item.CreativeModeTab
+import org.jetbrains.annotations.Contract
+import java.util.function.Supplier
 
-import java.util.function.Supplier;
-
-public interface Platform {
-
-    default <T> Holder<T> register(Registry<T> registry, ResourceLocation rl, Supplier<T> value) {
-        return Registry.registerForHolder(registry, rl, value.get());
+interface Platform {
+    fun <T> register(registry: Registry<T>, rl: ResourceLocation, value: Supplier<T>): Holder<T> {
+        return Registry.registerForHolder<T>(registry, rl, value.get())
     }
 
     @Contract(value = " -> new", pure = true)
-    CreativeModeTab.Builder creativeTabBuilder();
+    fun creativeTabBuilder(): CreativeModeTab.Builder
 
-    default boolean isClient() {
-        try {
-            //noinspection ResultOfMethodCallIgnored
-            Minecraft.getInstance();
-            return true;
-        } catch (Exception e) {
-            return false;
+    val isClient: Boolean
+        get() {
+            try {
+                Minecraft.getInstance()
+                return true
+            } catch (_: Exception) {
+                return false
+            }
         }
-    }
 }

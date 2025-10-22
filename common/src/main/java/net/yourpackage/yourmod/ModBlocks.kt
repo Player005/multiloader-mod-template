@@ -1,38 +1,59 @@
-package net.yourpackage.yourmod;
+package net.yourpackage.yourmod
 
-import net.minecraft.core.Holder;
-import net.minecraft.core.registries.BuiltInRegistries;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.BlockItem;
-import net.minecraft.world.item.Item;
-import net.minecraft.world.level.block.Block;
-import net.minecraft.world.level.block.state.BlockBehaviour;
+import net.minecraft.core.Holder
+import net.minecraft.core.registries.BuiltInRegistries
+import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.item.BlockItem
+import net.minecraft.world.item.Item
+import net.minecraft.world.level.block.Block
+import net.minecraft.world.level.block.state.BlockBehaviour
+import java.util.function.Supplier
+import kotlin.properties.PropertyDelegateProvider
+import kotlin.properties.ReadOnlyProperty
 
-import java.util.function.Supplier;
+@Suppress("unused")
+object ModBlocks {
 
-import static net.yourpackage.yourmod.MyMod.platform;
+    // Put your custom blocks here. registerWithItem() will also register a block item for your block.
+    // Example:
+    val MY_BLOCK = registerWithItem("my_block") { Block(BlockBehaviour.Properties.of()) }
 
-public class ModBlocks {
+    // Alternatively, if you use registerDelegatedWithItem(), you can omit the block id,
+    // which will instead be inferred from the variable name:
+    val MY_OTHER_BLOCK by registerDelegatedWithItem { Block(BlockBehaviour.Properties.of()) }
 
-    // put your custom blocks here
-    public static Holder<Block> EXAMPLE_BLOCK = registerWithItem(
-        "my_block",
-        () -> new Block(BlockBehaviour.Properties.of())
-    );
+    // You can even omit the lambda, if you just want a simple block
+    // with default properties:
+    val MY_OTHER_OTHER_BLOCK by registerDelegatedWithItem()
+
+    // If you just use registerDelegated(), there won't be a block item,
+    // meaning the block can be placed in the world but not dropped as an item or put in any inventory
+    val MY_MORE_OTHER_BLOCK by registerDelegated()
 
 
-    private static Holder<Block> register(String id, Supplier<Block> bl) {
-        return platform.register(BuiltInRegistries.BLOCK, ResourceLocation.fromNamespaceAndPath(MyMod.modID, id), bl);
+    private fun registerWithItem(id: String, addItemToTab: Boolean = true, supplier: Supplier<Block>): Holder<Block> {
+        val rl = ResourceLocation.fromNamespaceAndPath(MyMod.modID, id)
+        val block = MyMod.register(BuiltInRegistries.BLOCK, id, supplier)
+        if (addItemToTab) ModCreativeTab.ALL_ITEMS.add(
+            MyMod.platform.register(BuiltInRegistries.ITEM, rl) { BlockItem(block.value()!!, Item.Properties()) }
+        )
+        return block
     }
 
-    private static Holder<Block> registerWithItem(String id, Supplier<Block> supplier) {
-        var rl = ResourceLocation.fromNamespaceAndPath(MyMod.modID, id);
-        var block = register(id, supplier);
-        ModItems.ALL_ITEMS.add(
-            platform.register(BuiltInRegistries.ITEM, rl, () -> new BlockItem(block.value(), new Item.Properties()))
-        );
-        return block;
+    private fun registerDelegated(
+        blockSupplier: () -> Block = { Block(BlockBehaviour.Properties.of()) }
+    ) = PropertyDelegateProvider { _: Any, property ->
+        val item = MyMod.register(BuiltInRegistries.BLOCK, property.name.lowercase(), blockSupplier)
+        ReadOnlyProperty { _: Any, _ -> item }
     }
 
-    public static void init() { }
+    private fun registerDelegatedWithItem(
+        addToTab: Boolean = true,
+        blockSupplier: () -> Block = { Block(BlockBehaviour.Properties.of()) }
+    ) = PropertyDelegateProvider { _: Any, property ->
+        val block = registerWithItem(property.name.lowercase(), addToTab, blockSupplier)
+        ReadOnlyProperty { _: Any, _ -> block }
+    }
+
+    fun init() {}
 }

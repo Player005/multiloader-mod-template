@@ -2,9 +2,9 @@ rootProject.name = "multiloader-mod-template" // TODO: replace with your mod id
 
 pluginManagement {
     repositories {
+        gradlePluginPortal()
         maven("https://maven.fabricmc.net/")
         maven("https://maven.neoforged.net/releases")
-        gradlePluginPortal()
     }
 }
 

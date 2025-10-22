@@ -1,18 +1,27 @@
-package net.yourpackage.yourmod;
+package net.yourpackage.yourmod
 
-public class MyMod {
-    public static final String modID = "my_mod_id";
+import net.minecraft.core.Holder
+import net.minecraft.core.Registry
+import net.minecraft.resources.ResourceLocation
+import java.util.function.Supplier
 
-    public static Platform platform;
+object MyMod {
+    const val modID: String = "my_mod_id"
 
-    static void init(Platform platform) {
+    lateinit var platform: Platform
+
+    fun init(platform: Platform) {
         // Your common initialisation code here
-        System.out.println("Hi from example mod!");
+        println("Hi from example mod!")
 
-        MyMod.platform = platform;
+        MyMod.platform = platform
 
-        ModBlocks.init();
-        ModItems.init();
-        ModCreativeTab.init();
+        ModItems.init()
+        ModBlocks.init()
+        ModCreativeTab.init()
+    }
+
+    fun <T> register(registry: Registry<T>, name: String, obj: Supplier<T>): Holder<T> {
+        return platform.register(registry, ResourceLocation.fromNamespaceAndPath(modID, name), obj)
     }
 }

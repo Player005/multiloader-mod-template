@@ -1,51 +1,40 @@
-package net.yourpackage.yourmod;
+package net.yourpackage.yourmod
 
-import net.minecraft.core.Holder;
-import net.minecraft.core.Registry;
-import net.minecraft.resources.ResourceLocation;
-import net.minecraft.world.item.CreativeModeTab;
-import net.neoforged.bus.api.IEventBus;
-import net.neoforged.fml.common.Mod;
-import net.neoforged.neoforge.registries.DeferredRegister;
-
-import java.util.HashMap;
-import java.util.Map;
-import java.util.function.Supplier;
+import net.minecraft.core.Holder
+import net.minecraft.core.Registry
+import net.minecraft.resources.ResourceLocation
+import net.minecraft.world.item.CreativeModeTab
+import net.neoforged.bus.api.IEventBus
+import net.neoforged.fml.common.Mod
+import net.neoforged.neoforge.registries.DeferredRegister
+import java.util.function.Supplier
 
 @Mod(MyMod.modID)
-public class MyModNeoforge {
+class MyModNeoforge(val modEventBus: IEventBus) {
 
-    public static IEventBus modEventBus;
-
-    public MyModNeoforge(IEventBus modEventBus) {
-        MyModNeoforge.modEventBus = modEventBus;
-
-        MyMod.init(new NeoforgePlatform());
+    init {
+        MyMod.init(NeoforgePlatform())
         // Your neoforge initialisation code here
     }
 
-    public static class NeoforgePlatform implements Platform {
+    inner class NeoforgePlatform : Platform {
+        private val registers: MutableMap<Registry<*>, DeferredRegister<*>> = HashMap()
 
-        private final Map<Registry<?>, DeferredRegister<?>> registers = new HashMap<>();
-
-        private <T> DeferredRegister<T> getRegister(Registry<T> registry) {
-            if (registers.containsKey(registry)) { //noinspection unchecked
-                return (DeferredRegister<T>) registers.get(registry);
+        private fun <T> getRegister(registry: Registry<T>): DeferredRegister<T> {
+            if (registers.containsKey(registry)) {
+                @Suppress("UNCHECKED_CAST")
+                return registers[registry] as DeferredRegister<T>
             }
-            var register = DeferredRegister.create(registry, MyMod.modID);
-            register.register(modEventBus);
-            registers.put(registry, register);
-            return register;
+            return DeferredRegister.create<T>(registry, MyMod.modID)
+                .also { it.register(modEventBus); registers[registry] = it }
         }
 
-        @Override
-        public <T> Holder<T> register(Registry<T> registry, ResourceLocation rl, Supplier<T> value) {
-            return getRegister(registry).register(rl.getPath(), value);
+        override fun <T> register(registry: Registry<T>, rl: ResourceLocation, value: Supplier<T>): Holder<T> {
+            return getRegister(registry).register<T>(rl.path, value)
         }
 
-        @Override
-        public CreativeModeTab.Builder creativeTabBuilder() {
-            return CreativeModeTab.builder();
+        override fun creativeTabBuilder(): CreativeModeTab.Builder {
+            return CreativeModeTab.builder()
         }
     }
 }
