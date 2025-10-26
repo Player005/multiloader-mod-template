@@ -1,11 +1,12 @@
-# Gradle Minecraft Multi-loader mod template (fabric/[neo]forge)
+# Minecraft Kotlin Multi-loader mod template (fabric/[neo]forge)
 
-### An easy-to-use template for creating multi-loader minecraft mods for fabric and neoforge (forge for mc <= 1.20.1). Works with Minecraft 1.17 to 1.21.8+
+### An easy-to-use template for creating multi-loader minecraft mods for fabric and neoforge using Kotlin. Works with Minecraft 1.17 to 1.21.8+
 
 ### Features:
-😎 **Easy to use** (see the [Getting started](#getting-started) section)<br>
-🚀 **Blazingly fast** thanks to gradle configuration cache*<br>
-**Free of copyright restrictions** as it is subject to the public domain by using [Unlicense](https://unlicense.org/)<br>
+This template is supposed to contain everything you need to create a stable base for a new mod as easily as
+possible - from a nice base multiloader structure with all the utility code needed to register stuff like
+items and blocks, to pre-configured automatic publishing to curseforge and modrinth via GitHub Actions.
+The gradle setup is also pretty fast, thanks to the use of configuration caching*.
 
 > *Importing and building the project for the first time might take quite a while, but
 > once that's done building or running the project will be pretty fast!
@@ -23,23 +24,23 @@
 
    For neoforge, IDEA might not automatically use the right sources, and will show a blue bar at the top when viewing minecraft / neoforge sources,
    with a button named "attach sources" that you need to click to make it use the generated sources.
-4. **Rename package** <br>
+3. **Rename package** <br>
    In the `common`, `fabric` and `neoforge` modules, refactor the package name from `net.yourpackage.yourmod` to your actual package name. Also adjust the java file names and the `modID` field
-5. **Done** <br>
+4. **Done** <br>
    You can now enjoy modding in a multi-loader setup!
    Working run configurations are automatically generated - just select the relevant one in the top right of your IDE window and run the game right from your IDE.
 
 ## More information
 <details style="margin-bottom: 5px">
    <summary><b>Project structure</b></summary>
-   
+
    A multi-loader project consists of a root gradle project and three subprojects: `common`, `fabric` and `neoforge`. <br>
    The root project should not contain any code. It's build.gradle.kts file is used for some  common configuration for all the subprojects. <br>
    The `common` subproject contains all the **common mod code**, which will be included in all built jars. It has access to all of Minecraft,
    and the ability to add Access wideners and mixins, but no access to any mod loader's API.
    It's build.gradle.kts is the place to put most of your required dependencies. <br>
    The `fabric` and `neoforge` subprojects contain initialisation and **loader-specific code**, as well as loader-specific resources like `fabric.mod.json` and `neoforge.mods.toml` <br>
-   
+
 </details>
 
 <details style="margin-bottom: 5px">
