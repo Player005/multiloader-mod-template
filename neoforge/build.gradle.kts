@@ -56,7 +56,7 @@ tasks {
         from(main.output.resourcesDir)
     }
 
-    named("compileTestJava").configure {
+    named("compileTestKotlin") {
         enabled = false
     }
 
