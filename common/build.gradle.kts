@@ -4,11 +4,14 @@ plugins {
 
 // you can put a repositories block here if you need common dependencies from other sources than modrinth
 
+val minecraftVersion = rootProject.properties["minecraft_version"]
+val parchmentVersion = libs.versions.parchment.get()
+
 dependencies {
-    minecraft("com.mojang:minecraft:${rootProject.properties["minecraft_version"]}")
+    minecraft("com.mojang:minecraft:${minecraftVersion}")
     mappings(loom.layered {
         officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-${rootProject.properties["parchment_version"]}@zip")
+        parchment("org.parchmentmc.data:parchment-${minecraftVersion}:${parchmentVersion}@zip")
     })
 
     // mixin extras is included by default in both fabric and neoforge (no additional dependency required)

@@ -1,7 +1,9 @@
 [versions]
 fabric-loom = "1.13-SNAPSHOT" # "1.16-SNAPSHOT"
 mod-dev-gradle = "2.0.141"
-parchment = "2024.07.28"
+# The version of ParchmentMC
+# See https://parchmentmc.org/docs/getting-started on whether a newer version exists
+parchment = "2024.11.17"
 
 [libraries]
 

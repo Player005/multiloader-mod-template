@@ -8,11 +8,14 @@ plugins {
 
 dependencies.project(":common")
 
+val minecraftVersion = rootProject.properties["minecraft_version"]
+val parchmentVersion = libs.versions.parchment.get()
+
 dependencies {
-    minecraft("com.mojang:minecraft:${rootProject.properties["minecraft_version"]}")
+    minecraft("com.mojang:minecraft:${minecraftVersion}")
     mappings(loom.layered {
         officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-${rootProject.properties["parchment_version"]}@zip")
+        parchment("org.parchmentmc.data:parchment-${minecraftVersion}:${parchmentVersion}@zip")
     })
 
     modImplementation("net.fabricmc:fabric-loader:${rootProject.properties["fabric_loader_version"]}")
@@ -28,7 +31,13 @@ loom {
     mixin.useLegacyMixinAp = false
 
     runs {
-        val vmArgs = arrayOf("-XX:+UseZGC", "-XX:+IgnoreUnrecognizedVMOptions", "-XX:+AllowEnhancedClassRedefinition", "-Xms500M", "-Xmx2G")
+        val vmArgs = arrayOf(
+            "-XX:+UseZGC",
+            "-XX:+IgnoreUnrecognizedVMOptions",
+            "-XX:+AllowEnhancedClassRedefinition",
+            "-Xms500M",
+            "-Xmx2G"
+        )
         named("client") {
             client()
             runDir("../run/client/${properties["minecraft_version"]}")
@@ -69,19 +78,16 @@ tasks {
         from(project(":common").sourceSets.main.get().resources)
 
         // the properties listed here can be used in the fabric.mod.json
-        val properties =
-            listOf(
-                "mc_versions_fabric", "mod_version", "mod_id", "mod_name",
-                "mod_description", "mod_authors", "mod_license"
-            )
+        val properties = listOf(
+            "mc_versions_fabric", "mod_version", "mod_id", "mod_name", "mod_description", "mod_authors", "mod_license"
+        )
 
         val map = mutableMapOf<String, String>()
         properties.forEach { map[it] = rootProject.properties[it].toString() }
         inputs.property("property_map", map)
 
         filesMatching("fabric.mod.json") {
-            @Suppress("UNCHECKED_CAST")
-            expand(inputs.properties["property_map"] as Map<String, String>)
+            @Suppress("UNCHECKED_CAST") expand(inputs.properties["property_map"] as Map<String, String>)
         }
     }
 

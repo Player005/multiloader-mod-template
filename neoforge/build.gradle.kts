@@ -10,12 +10,14 @@ dependencies {
     // Add neoforge-only dependencies here.
 }
 
+val parchmentVersion = libs.versions.parchment.get()
+
 neoForge {
     version = rootProject.properties["neoforge_version"].toString()
 
     parchment {
-        minecraftVersion = rootProject.properties["parchment_version"].toString().split(":").first()
-        mappingsVersion = rootProject.properties["parchment_version"].toString().split(":").last()
+        minecraftVersion = rootProject.properties["minecraft_version"].toString()
+        mappingsVersion = parchmentVersion
     }
 
     runs {
