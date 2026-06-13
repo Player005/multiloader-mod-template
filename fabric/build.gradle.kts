@@ -40,14 +40,17 @@ loom {
         )
         named("client") {
             client()
-            runDir("../run/client/${properties["minecraft_version"]}")
+            runDir("../run/client/${minecraftVersion}")
             configName = "Fabric/Client"
+            ideConfigGenerated(true)
             vmArgs(*vmArgs)
         }
         named("server") {
             server()
-            runDir("../run/server/${properties["minecraft_version"]}")
+            serverWithGui()
+            runDir("../run/server/${minecraftVersion}")
             configName = "Fabric/Server"
+            ideConfigGenerated(true)
             vmArgs(*vmArgs)
         }
     }
