@@ -1,5 +1,5 @@
 [versions]
-fabric-loom = "1.13-SNAPSHOT" # "1.16-SNAPSHOT"
+fabric-loom = "1.16-SNAPSHOT"
 mod-dev-gradle = "2.0.141"
 # The version of ParchmentMC
 # See https://parchmentmc.org/docs/getting-started on whether a newer version exists
