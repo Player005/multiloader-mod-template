@@ -1,5 +1,5 @@
 plugins {
-    id("net.neoforged.moddev") version "2.0.78"
+    alias(libs.plugins.moddevgradle)
 }
 
 // Put a repositories block here for neoforge-only dependencies that do not use modrinth maven.
@@ -54,7 +54,7 @@ tasks {
     // NeoGradle compiles the game, but we don't want to add our common code to the game's code
     val notNeoTask: (Task) -> Boolean = { !it.name.startsWith("neo") && !it.name.startsWith("compileService") }
 
-    // add common code & javadoc to built jars (except for NeoGradle jars)
+    // add common code & Javadoc to built jars (except for NeoGradle jars)
     withType<JavaCompile>().matching(notNeoTask).configureEach {
         source(project(":common").sourceSets.main.get().allSource)
     }

@@ -1,9 +1,7 @@
-@file:Suppress("UnstableApiUsage")
-
 import net.fabricmc.loom.task.RemapJarTask
 
 plugins {
-    id("fabric-loom") version "1.10-SNAPSHOT"
+    alias(libs.plugins.fabricloom)
 }
 
 // Put a repositories block here for fabric-only dependencies that do not use modrinth maven.

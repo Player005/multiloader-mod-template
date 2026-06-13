@@ -1,7 +1,7 @@
 plugins {
     id("java")
     id("idea")
-    id("fabric-loom") version "1.10-SNAPSHOT" apply false
+    alias(libs.plugins.fabricloom) apply false
 }
 
 subprojects {
