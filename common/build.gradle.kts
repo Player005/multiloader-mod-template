@@ -1,21 +1,24 @@
 @file:Suppress("UnstableApiUsage")
 
 plugins {
-    id("fabric-loom") version ("1.10-SNAPSHOT")
+    alias(libs.plugins.fabricloom)
 }
 
 // you can put a repositories block here if you need common dependencies from other sources than modrinth
 
+val minecraftVersion = rootProject.properties["minecraft_version"]
+val parchmentVersion = libs.versions.parchment.get()
+
 dependencies {
-    minecraft("com.mojang:minecraft:${rootProject.properties["minecraft_version"]}")
+    minecraft("com.mojang:minecraft:${minecraftVersion}")
     mappings(loom.layered {
         officialMojangMappings()
-        parchment("org.parchmentmc.data:parchment-${rootProject.properties["parchment_version"]}@zip")
+        parchment("org.parchmentmc.data:parchment-${minecraftVersion}:${parchmentVersion}@zip")
     })
 
     // mixin extras is included by default in both fabric and neoforge (no additional dependency required)
-    compileOnly("io.github.llamalad7:mixinextras-common:0.3.5")
-    annotationProcessor("io.github.llamalad7:mixinextras-common:0.3.5")
+    val mixinExtras = "io.github.llamalad7:mixinextras-common:0.3.5"
+    compileOnly(annotationProcessor(mixinExtras)!!)
 
     compileOnly("net.fabricmc:sponge-mixin:0.15.3+mixin.0.8.7")
     modImplementation("net.fabricmc:fabric-loader:${rootProject.properties["fabric_loader_version"]}")
