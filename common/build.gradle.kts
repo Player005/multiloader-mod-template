@@ -1,3 +1,5 @@
+@file:Suppress("UnstableApiUsage")
+
 plugins {
     alias(libs.plugins.fabricloom)
 }
@@ -15,7 +17,7 @@ dependencies {
     })
 
     // mixin extras is included by default in both fabric and neoforge (no additional dependency required)
-    val mixinExtras = "io.github.llamalad7:mixinextras-common:0.3.5";
+    val mixinExtras = "io.github.llamalad7:mixinextras-common:0.3.5"
     compileOnly(annotationProcessor(mixinExtras)!!)
 
     compileOnly("net.fabricmc:sponge-mixin:0.15.3+mixin.0.8.7")
